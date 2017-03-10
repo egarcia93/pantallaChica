@@ -46,7 +46,7 @@ void ofApp::draw()
             x=x-20;
 
         }
-
+//prueba
         if(tiempo>5000){
           inicia=ofGetElapsedTimeMillis();
           contador++;
