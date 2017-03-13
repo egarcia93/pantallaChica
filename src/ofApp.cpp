@@ -4,6 +4,9 @@
 void ofApp::setup()
 {
     ofSetFrameRate(24);
+    Ball tempBall;							// create the ball object
+      tempBall.setup(x,y, ofRandom(10,40));	// setup its initial state
+      myBall.push_back(tempBall);	
     inicia=ofGetElapsedTimeMillis();
     std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
 
@@ -17,16 +20,24 @@ void ofApp::setup()
      {
          string url = response[i]["imageVision"].asString();
          ofImage img;
-         img.loadImage(url);
+         ofHttpResponse resp = ofLoadURL(url);
+         img.loadImage(resp.data);
          images.push_back(img);
+       //img.loadImage(url);
+         //images.push_back(img);
 
      }
 
 }
+void ofApp::update()
+{
+miEvento.update();
 
+}
 void ofApp::draw()
 {
      ofBackground(255);
+     miEvento.draw();
      ofEnableAlphaBlending();
 
         ofSetColor(255,255,255,alfa);

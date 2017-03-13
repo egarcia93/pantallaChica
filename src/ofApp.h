@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxJSON.h"
+#include "Evento.h"
 
 
 class ofApp: public ofBaseApp
@@ -10,6 +11,7 @@ class ofApp: public ofBaseApp
 public:
     void setup();
     void draw();
+    void update();
 
     ofxJSONElement response;
     std::vector<ofImage> images;
@@ -21,5 +23,6 @@ public:
     int y=10;
     int x2=-100;
     int y2=10;
+    vector <Evento> miEvento;
 
 };

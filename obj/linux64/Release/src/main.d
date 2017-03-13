@@ -339,7 +339,8 @@ obj/linux64/Release/src/main.o: \
  ../../../libs/openFrameworks/3d/ofEasyCam.h \
  /home/ccd/OF/addons/ofxJSON/src/ofxJSON.h \
  /home/ccd/OF/addons/ofxJSON/libs/jsoncpp/include/json/json.h \
- /home/ccd/OF/addons/ofxJSON/src/ofxJSONElement.h
+ /home/ccd/OF/addons/ofxJSON/src/ofxJSONElement.h \
+ /home/ccd/OF/apps/myApps/pantallaChica/src/Evento.h
 
 /home/ccd/OF/apps/myApps/pantallaChica/src/ofApp.h:
 
@@ -1052,3 +1053,5 @@ obj/linux64/Release/src/main.o: \
 /home/ccd/OF/addons/ofxJSON/libs/jsoncpp/include/json/json.h:
 
 /home/ccd/OF/addons/ofxJSON/src/ofxJSONElement.h:
+
+/home/ccd/OF/apps/myApps/pantallaChica/src/Evento.h:
