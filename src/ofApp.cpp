@@ -4,11 +4,9 @@
 void ofApp::setup()
 {
     ofSetFrameRate(24);
-    Ball tempBall;							// create the ball object
-      tempBall.setup(x,y, ofRandom(10,40));	// setup its initial state
-      myBall.push_back(tempBall);	
-    inicia=ofGetElapsedTimeMillis();
+
     std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
+
 
     if (!response.open(url))
     {
@@ -23,22 +21,31 @@ void ofApp::setup()
          ofHttpResponse resp = ofLoadURL(url);
          img.loadImage(resp.data);
          images.push_back(img);
-       //img.loadImage(url);
+          //img.loadImage(url);
          //images.push_back(img);
-
+         Evento tempEvento;
+         tempEvento.setup(0,0,images[0]);	// setup its initial state
+         miEvento.push_back(tempEvento);
      }
+
+
+    inicia=ofGetElapsedTimeMillis();
+
+
+
 
 }
 void ofApp::update()
 {
-miEvento.update();
+miEvento[0].update();
 
 }
 void ofApp::draw()
 {
      ofBackground(255);
-     miEvento.draw();
-     ofEnableAlphaBlending();
+     miEvento[0].draw();
+
+     /*ofEnableAlphaBlending();
 
         ofSetColor(255,255,255,alfa);
         images[contador].draw(x, y);
@@ -71,6 +78,6 @@ void ofApp::draw()
         }
       ofDisableAlphaBlending();
 
-
+*/
 
 }
