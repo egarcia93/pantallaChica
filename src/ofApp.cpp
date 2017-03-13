@@ -17,14 +17,15 @@ void ofApp::setup()
     for(unsigned int i = 0; i < numImages; i++)
      {
          string url = response[i]["imageVision"].asString();
+         string txt1 = response[i]["categories"][1].asString();
          ofImage img;
          ofHttpResponse resp = ofLoadURL(url);
          img.loadImage(resp.data);
-         images.push_back(img);
+        // images.push_back(img);
           //img.loadImage(url);
          //images.push_back(img);
          Evento tempEvento;
-         tempEvento.setup(0,0,images[0]);	// setup its initial state
+         tempEvento.setup(initX,initY,img,txt1);	// setup its initial state
          miEvento.push_back(tempEvento);
      }
 
@@ -37,13 +38,25 @@ void ofApp::setup()
 }
 void ofApp::update()
 {
-miEvento[0].update();
+  for (int i = 0; i<miEvento.size(); i++) {
+      miEvento[i].update();
+  }
+
 
 }
-void ofApp::draw()
+void ofApp::draw(){
+
+  ofBackground(255);
+  miEvento[1].draw();
+
+
+/*
 {
      ofBackground(255);
-     miEvento[0].draw();
+     for (int i = 0 ; i<miEvento.size(); i++) {
+    miEvento[i].draw();
+}
+*/
 
      /*ofEnableAlphaBlending();
 
