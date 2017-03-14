@@ -37,6 +37,7 @@ void ofApp::setup()
 
 
     inicia=ofGetElapsedTimeMillis();
+      inicia2=ofGetElapsedTimeMillis();
 
 
 
@@ -44,64 +45,47 @@ void ofApp::setup()
 }
 void ofApp::update()
 {
-  for (int i = 0; i<miEvento.size(); i++) {
+  for (int i=0;i<miEvento.size();i++){
       miEvento[i].update();
+    }
+
+    }
+
+
+
+void ofApp::draw(){
+    ofBackground(255);
+      miEvento[contador].draw();
+  tiempo=ofGetElapsedTimeMillis()-inicia;
+    tiempo2=ofGetElapsedTimeMillis()-inicia2;
+
+
+  if(tiempo>4500){
+
+    contador++;
+    inicia=ofGetElapsedTimeMillis();
+
+  }
+  if(contador>=miEvento.size()){
+      contador=0;
+    }
+  if(tiempo2>4500){
+    if(contador==0){
+      miEvento[miEvento.size()-1].dissolve();
+    }else{
+  miEvento[contador-1].dissolve();
+    }
+  }
+  if(tiempo2>6500){
+
+    inicia2=inicia;
+
   }
 
 
-}
-void ofApp::draw(){
-
-  ofBackground(255);
-  miEvento[1].draw();
-
-  tiempo=ofGetElapsedTimeMillis()-inicia;
 
 
 
 
-
-/*
-{
-     ofBackground(255);
-     for (int i = 0 ; i<miEvento.size(); i++) {
-    miEvento[i].draw();
-}
-*/
-
-     /*ofEnableAlphaBlending();
-
-        ofSetColor(255,255,255,alfa);
-        images[contador].draw(x, y);
-
-        if(x<10){
-          x=x+2;
-
-        }else if(tiempo<4500){
-
-          x=10;
-        }
-        tiempo=ofGetElapsedTimeMillis()-inicia;
-
-        if(tiempo>4500){
-            alfa=alfa-10;
-            x=x-20;
-
-        }
-//prueba
-        if(tiempo>5000){
-          inicia=ofGetElapsedTimeMillis();
-          contador++;
-          alfa=255;
-          x=-100;
-        }
-
-        if(contador==images.size()){
-          contador=0;
-
-        }
-      ofDisableAlphaBlending();
-
-*/
 
 }
