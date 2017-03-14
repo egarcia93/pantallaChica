@@ -6,16 +6,23 @@ class Evento {
     public: // place public functions or variables declarations here
 
     // methods, equivalent to specific functions of your class objects
-    void setup(float _x, float _y,ofImage _img,string str);	// setup method, use this to setup your object's initial state
+    void setup(float _x, float _y,ofImage _img,string tipo,string titulo,string fecha,string hora);	// setup method, use this to setup your object's initial state
     void update();  // update method, used to refresh your objects properties
     void draw();    // draw method, this where you'll do the object's drawing
-
-    // variables
     float x;        // position
     float y;
+    float imgX;
+    float imgY;
+    int alfa=0;
+    int tiempo=0;
+    int inicia;
     ofImage img;
     ofTrueTypeFont	verdana14;
-    string str;
+    string tipo;
+    string titulo;
+    string fecha;
+    string hora;
+
 
     Evento();  // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
     private: // place private functions or variables declarations here

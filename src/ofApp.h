@@ -19,7 +19,7 @@ public:
     int tiempo=0;
     int inicia=0;
     int alfa=255;
-    int initX=10;
+    int initX=-100;
     int initY=10;
 
     vector <Evento> miEvento;

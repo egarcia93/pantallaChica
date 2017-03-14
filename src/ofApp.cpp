@@ -18,6 +18,12 @@ void ofApp::setup()
      {
          string url = response[i]["imageVision"].asString();
          string txt1 = response[i]["categories"][1].asString();
+         string txt2 = response[i]["title"].asString();
+         /*string txt3 = response[i]["uniqueBeginDate"].asString();
+         string txt4 = response[i]["uniqueEndDate"].asString();*/
+         string txt3="Fecha";
+         string txt4="hora";
+
          ofImage img;
          ofHttpResponse resp = ofLoadURL(url);
          img.loadImage(resp.data);
@@ -25,7 +31,7 @@ void ofApp::setup()
           //img.loadImage(url);
          //images.push_back(img);
          Evento tempEvento;
-         tempEvento.setup(initX,initY,img,txt1);	// setup its initial state
+         tempEvento.setup(initX,initY,img,txt1,txt2,txt3,txt4);	// setup its initial state
          miEvento.push_back(tempEvento);
      }
 
@@ -48,6 +54,11 @@ void ofApp::draw(){
 
   ofBackground(255);
   miEvento[1].draw();
+
+  tiempo=ofGetElapsedTimeMillis()-inicia;
+
+
+
 
 
 /*
