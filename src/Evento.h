@@ -1,32 +1,33 @@
-#ifndef _EVENTO // if this class hasn't been defined, the program can define it
-#define _EVENTO // by using this if statement you prevent the class to be called more than once which would confuse the compiler
-#include "ofMain.h" // we need to include this to have a reference to the openFrameworks framework
+#ifndef _EVENTO
+#define _EVENTO
+#include "ofMain.h"
 class Evento {
 
-    public: // place public functions or variables declarations here
+    public:
 
-    // methods, equivalent to specific functions of your class objects
-    void setup(float _x, float _y,ofImage _img,string tipo,string titulo,string fecha,string hora);	// setup method, use this to setup your object's initial state
-    void update();  // update method, used to refresh your objects properties
+    void setup(float _x, float _y,ofImage _img,string tipo,string titulo,string fecha,string hora);
+    void update();
     void draw();
-    void dissolve();    // draw method, this where you'll do the object's drawing
-    float x;        // position
+    void dissolve();
+
+    float x;
     float y;
-    float imgX=10;
-    float imgY=10;
+    float imgX=0;
+    float imgY=0;
+
     int alfa=0;
     int tiempo=0;
     int inicia;
+    int rectW=300;
+    int rectH=100;
+
     ofImage img;
     ofTrueTypeFont	verdana14;
+
     string tipo;
     string titulo;
     string fecha;
     string hora;
-    bool init=true;
-    int rectW=300;
-    int rectH=100;
-
 
     Evento();  // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
     private: // place private functions or variables declarations here
