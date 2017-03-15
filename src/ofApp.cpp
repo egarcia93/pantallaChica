@@ -8,7 +8,9 @@ void ofApp::setup()
     std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
 
 
-    if (!response.open(url))
+
+
+   if (!response.open(url))
     {
         ofLogNotice("ofApp::setup") << "Failed to parse JSON";
     }
@@ -16,30 +18,29 @@ void ofApp::setup()
     unsigned int numImages = MIN(10, response.size());
     for(unsigned int i = 0; i < numImages; i++)
      {
-         string url = response[i]["imageVision"].asString();
-         string txt1 = response[i]["categories"][1].asString();
-         string txt2 = response[i]["title"].asString();
+         std::string imagen = response[i]["imageVision"].asString();
+         std::string txt1 = response[i]["categories"][1].asString();
+         std::string txt2 = response[i]["title"].asString();
          /*string txt3 = response[i]["uniqueBeginDate"].asString();
          string txt4 = response[i]["uniqueEndDate"].asString();*/
-         string txt3="Fecha";
-         string txt4="hora";
+         std::string txt3="Fecha";
+         std::string txt4="hora";
 
          ofImage img;
-         ofHttpResponse resp = ofLoadURL(url);
-         img.loadImage(resp.data);
+        // ofHttpResponse resp = ofLoadURL(url);
+         //img.loadImage(resp.data);
         // images.push_back(img);
-          //img.loadImage(url);
+        img.loadImage(imagen);
          //images.push_back(img);
          Evento tempEvento;
-         tempEvento.setup(initX,initY,img,txt1,txt2,txt3,txt4);	// setup its initial state
+         tempEvento.setup(initX,initY,imagen,txt1,txt2,txt3,txt4);	// setup its initial state
          miEvento.push_back(tempEvento);
      }
 
 
-    inicia=ofGetElapsedTimeMillis();
+      inicia=ofGetElapsedTimeMillis();
       inicia2=ofGetElapsedTimeMillis();
-
-
+      inicia3=ofGetElapsedTimeMillis();
 
 
 }
@@ -48,9 +49,42 @@ void ofApp::update()
   for (int i=0;i<miEvento.size();i++){
       miEvento[i].update();
     }
+      tiempo3=ofGetElapsedTimeMillis()-inicia3;
+      if(tiempo3>30000&&flag==1){
+        flag=0;
+        std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
+        if (response.open(url))
+         {
 
-    }
+             ofLogNotice("ofApp::update") << "cargado";
+         }
 
+         unsigned int numImages = MIN(10, response.size());
+         for(unsigned int i = 0; i < numImages; i++)
+          {
+              std::string imagen = response[i]["imageVision"].asString();
+              std::string txt1 = response[i]["categories"][1].asString();
+              std::string txt2 = response[i]["title"].asString();
+            //  string txt3 = response[i]["uniqueBeginDate"].asString();
+              //string txt4 = response[i]["uniqueEndDate"].asString();
+              std::string txt3="Fecha";
+              std::string txt4="hora";
+
+                ofImage img;
+                   img.loadImage(imagen);
+                   Evento tempEvento;
+                     tempEvento.setup(initX,initY,imagen,txt1,txt2,txt3,txt4);	// setup its initial state
+                     miEvento2.push_back(tempEvento);
+                   std::cout << "hasta aqui" << '\n';
+                    miEvento=miEvento2;
+
+            }
+
+
+
+      }
+
+}
 
 
 void ofApp::draw(){
