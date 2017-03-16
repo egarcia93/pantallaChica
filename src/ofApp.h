@@ -15,8 +15,8 @@ public:
     void setup();
     void draw();
     void update();
-    string cambiarFecha(string fecha);
-    string cambiarHora(string fechaInicio,string fechaFinal);
+    //string cambiarFecha(string fecha);
+    string cambiarFechaHora(string fechaInicial,string fechaFinal);
 
 
     ofxJSONElement response;
