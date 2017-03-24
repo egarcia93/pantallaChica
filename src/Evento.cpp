@@ -11,10 +11,15 @@ void Evento::setup(float _x, float _y,ofImage _img,string _tipo,string _titulo,s
     fecha=_fecha;
     hora=_hora;
 
+
     ofTrueTypeFont::setGlobalDpi(72);
     verdana14.load("verdana.ttf", 14, true, true);
   	verdana14.setLineHeight(18.0f);
   	verdana14.setLetterSpacing(1.037);
+
+    gothic10.load("Pill Gothic 300mg Regular.ttf", 10, true, true);
+    gothic10.setLineHeight(18.0f);
+    gothic10.setLetterSpacing(1.037);
 
     inicia=ofGetElapsedTimeMillis();
 
@@ -39,10 +44,10 @@ void Evento::draw(){
     ofSetColor(255,alfa);
     ofRect(x,y,rectW,rectH);
     ofSetColor(0,alfa);
-  	verdana14.drawString(tipo, x+35, 50);
-    verdana14.drawString(titulo, x+35, 70);
-    verdana14.drawString(fecha, x+35, 90);
-    verdana14.drawString(hora, x+35, 110);
+  	gothic10.drawString(tipo, x+35, 70);
+    verdana14.drawString(titulo, x+35, 90);
+    verdana14.drawString(fecha, x+35, 110);
+    verdana14.drawString(hora, x+35, 130);
 
   ofDisableAlphaBlending();
 
@@ -64,10 +69,10 @@ void Evento::dissolve()
     ofSetColor(255,alfa);
     ofRect(x,y,rectW,rectH);
     ofSetColor(0,alfa);
-  	verdana14.drawString(tipo, x+35, 50);
-    verdana14.drawString(titulo, x+35, 70);
-    verdana14.drawString(fecha, x+35, 90);
-    verdana14.drawString(hora, x+35, 110);
+  	gothic10.drawString(tipo, x+35, 70);
+    verdana14.drawString(titulo, x+35, 90);
+    verdana14.drawString(fecha, x+35, 110);
+    verdana14.drawString(hora, x+35, 130);
     ofDisableAlphaBlending();
 
   }

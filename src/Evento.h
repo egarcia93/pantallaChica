@@ -23,6 +23,7 @@ class Evento {
 
     ofImage img;
     ofTrueTypeFont	verdana14;
+    ofTrueTypeFont	gothic10;
 
     string tipo;
     string titulo;

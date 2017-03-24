@@ -78,6 +78,7 @@
 # incorporated directly into the final executable application binary.
 # TODO: should this be a default setting?
 # PROJECT_LDFLAGS=-Wl,-rpath=./libs
+PROJECT_LDFLAGS+=/usr/local/boost_1_63_0/boost_1_63_0/bin.v2/libs/date_time/build/gcc-4.9.2/release/link-static/threading-multi/libboost_date_time.a
 
 ################################################################################
 # PROJECT DEFINES

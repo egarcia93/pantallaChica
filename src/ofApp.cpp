@@ -17,27 +17,19 @@ void ofApp::setup()
     for(unsigned int i = 0; i < numImages; i++)
      {
          std::string imagen = response[i]["imageVision"].asString();
-         std::string txt1 = response[i]["categories"][1].asString();
+         std::string txt1 = response[i]["categories"][0].asString();
          std::string txt2 = response[i]["title"].asString();
          std::string txt3 = response[i]["uniqueBeginDate"].asString();
          string txt4 = response[i]["uniqueEndDate"].asString();
-        // std::string fecha=cambiarFecha(txt3);
-         //std::string hora=cambiarHora(txt3,txt4);
          string fecha=cambiarFechaHora(txt3,txt4);
          int pos=fecha.find("&");
 
          string dia=fecha.substr(0,pos);
          string hora=fecha.substr(pos+1,19);
 
-         // std::string txt3="Fecha";
-         // std::string txt4="hora";
-
          ofImage img;
-         // ofHttpResponse resp = ofLoadURL(url);
-         //img.loadImage(resp.data);
-         // images.push_back(img);
          img.loadImage(imagen);
-         //images.push_back(img);
+
          Evento tempEvento;
          tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
          miEvento.push_back(tempEvento);
@@ -73,24 +65,21 @@ void ofApp::update()
          for(unsigned int i = 0; i < numImages; i++)
           {
               std::string imagen = response[i]["imageVision"].asString();
-              std::string txt1 = response[i]["categories"][1].asString();
+              std::string txt1 = response[i]["categories"][0].asString();
               std::string txt2 = response[i]["title"].asString();
               std::string txt3 = response[i]["uniqueBeginDate"].asString();
               string txt4 = response[i]["uniqueEndDate"].asString();
+
               string fecha=cambiarFechaHora(txt3,txt4);
               int pos=fecha.find("&");
 
               string dia=fecha.substr(0,pos+1);
               string hora=fecha.substr(pos+1,5);
 
-
-              //std::string txt3="Fecha";
-              //std::string txt4="copiado";
-
               ofImage img;
               img.loadImage(imagen);
               Evento tempEvento;
-              tempEvento.setup(initX,initY,imagen,txt1,txt2,fecha,hora);
+              tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
               miEvento2.push_back(tempEvento);
               miEvento=miEvento2;
             }
@@ -129,200 +118,147 @@ void ofApp::draw(){
       inicia2=inicia;
     }
 }
-/*
-string ofApp::cambiarFecha(string fecha){
-  std::string str=fecha;
-  std::string dia = str.substr(8,2);
 
-  if(dia.substr(0,1)=="0"){
-    dia=dia.substr(1,1);
-  }
-
-  std::string mes=str.substr(5,2);
-  int mesNum=stoi(mes);
-  string mesNombre=meses[mesNum-1];
-  string fechaEvento=mesNombre+" "+" "+dia;
-  return fechaEvento;
-
-}
-
-string ofApp::cambiarHora(string fechaInicio,string fechaFinal){
-
-    std::string str1=fechaInicio;
-    std::string horaI=str1.substr(11,5);
-    std::string str2=fechaFinal;
-    std::string horaF=str2.substr(11,5);
-    string hhI=horaI.substr(0,2);
-    string hhF=horaF.substr(0,2);
-    string mmI=horaI.substr(2,3);
-    string mmF=horaF.substr(2,3);
-    int hora1=(stoi(hhI))-6;
-    int hora2=(stoi(hhF))-6;
-
-    if(hora1>12&&hora2>12){
-      hora1=hora1-12;
-      hora2=hora2-12;
-
-      if(hora1<9){
-      horaInicio ="0"+to_string(hora1)+mmI;
-      }else{
-      horaInicio =to_string(hora1)+mmI;
-      }
-
-      if(hora2<9){
-      horaFinal="0"+to_string(hora2)+mmF;
-      }else{
-      horaFinal=to_string(hora2)+mmF;
-      }
-      horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"AM";
-        return horaEvento;
-
-
-
-    }else if(hora1>12){
-
-      hora1=hora1-12;
-
-      if(hora1<9){
-        horaInicio ="0"+to_string(hora1)+mmI;
-      }else{
-        horaInicio =to_string(hora1)+mmI;
-      }
-
-      if(hora2<9){
-        horaFinal="0"+to_string(hora2)+mmF;
-        }else{
-        horaInicio =to_string(hora2)+mmF;
-        }
-
-      horaEvento=horaInicio+" "+"PM"+" "+"a"+" "+horaFinal+" "+"AM";
-        return horaEvento;
-
-      }else if(hora2>12){
-
-      hora2=hora2-12;
-      if(hora1<9){
-        horaInicio ="0"+to_string(hora1)+mmI;
-      }else{
-         horaInicio =to_string(hora1)+mmI;
-      }
-
-      if(hora2<9){
-        horaFinal="0"+to_string(hora2)+mmF;
-      }else{
-        horaFinal=to_string(hora2)+mmF;
-      }
-     horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"PM";
-       return horaEvento;
-
-
-   }else{
-
-      if(hora1<9){
-        horaInicio ="0"+to_string(hora1)+mmI;
-      }else{
-        horaInicio =to_string(hora1)+mmI;
-      }
-
-      if(hora2<9){
-        horaFinal="0"+to_string(hora2)+mmF;
-      }else{
-        horaFinal=to_string(hora2)+mmF;
-      }
-      horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"AM";
-      return horaEvento;
-    }
-
-}*/
 string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal){
 
-  std::string horaI=fechaInicial.substr(11,5);
-  std::string horaF=fechaFinal.substr(11,5);
-
-  string hhI=horaI.substr(0,2);
-  string hhF=horaF.substr(0,2);
-  string mmI=horaI.substr(2,3);
-  string mmF=horaF.substr(2,3);
-  int hora1=(stoi(hhI))-6;
-  int hora2=(stoi(hhF))-6;
+  using namespace boost::posix_time;
+  using namespace boost::gregorian;
+  typedef boost::date_time::c_local_adjustor<ptime> local_adj;
 
 
+  int anoI= stoi(fechaInicial.substr(0,4));
+  int anoF= stoi(fechaFinal.substr(0,4));
 
-  std::string diaTmp = fechaInicial.substr(8,2);
+  string mesI=fechaInicial.substr(5,2);
+  int mesNumI=stoi(mesI);
+  string mesF=fechaFinal.substr(5,2);
+  int mesNumF=stoi(mesF);
+
+  int diaI = stoi(fechaInicial.substr(8,2));
+  int diaF = stoi(fechaFinal.substr(8,2));
+
+
+  string hhI=fechaInicial.substr(11,2);
+  string hhF=fechaFinal.substr(11,2);
+  string mmI=fechaInicial.substr(13,3);
+  string mmF=fechaFinal.substr(13,3);
+  int hora1=stoi(hhI);
+  int hora2=stoi(hhF);
+
+
+  ptime tI(date(anoI,mesNumI,diaI), hours(hora1));
+  ptime tF(date(anoF,mesNumF,diaF), hours(hora2));
+
+
+  ptime t1 = local_adj::utc_to_local(tI);
+  ptime t2 = local_adj::utc_to_local(tF);
+
+  string format_I=to_iso_extended_string(t1);
+  string format_F=to_iso_extended_string(t2);
 
 
 
-  if(diaTmp.substr(0,1)=="0"){
-    diaTmp=diaTmp.substr(1,1);
-  }
+  int ano_I= stoi(format_I.substr(0,4));
+  int ano_F= stoi(format_F.substr(0,4));
 
-  int diaNum=stoi(diaTmp);
+  string mes_I=format_I.substr(5,2);
+  int mesNum_I=stoi(mes_I);
+  string mesNombre_I=meses[mesNum_I-1];
+  string mes_F=format_F.substr(5,2);
+  int mesNum_F=stoi(mes_F);
+  string mesNombre_F=meses[mesNum_F-1];
 
-  std::string mes=fechaInicial.substr(5,2);
-  int mesNum=stoi(mes);
-  string mesNombre=meses[mesNum-1];
+  int dia_I = stoi(format_I.substr(8,2));
+  int dia_F = stoi(format_F.substr(8,2));
 
-  if (hora1<=0){
-    diaNum-1;
-    hora1=12+hora1;
 
-  }
-  if (hora2<=0){
-    hora2=12+hora2;
+  string hh_I=format_I.substr(11,2);
+  string hh_F=format_F.substr(11,2);
+  int hora_1=stoi(hh_I);
+  int hora_2=stoi(hh_F);
 
-  }
-  if(hora1>12&&hora2>12){
-    hora1=hora1-12;
-    hora2=hora2-12;
 
-    if(hora1<9){
-    horaInicio ="0"+to_string(hora1)+mmI;
-    }else{
-    horaInicio =to_string(hora1)+mmI;
+  if(hora_1>=12&&hora_2>=12){
+    hora_1=hora_1-12;
+    hora_2=hora_2-12;
+
+    if(hora_1==0){
+      hora_1=12;
+
     }
 
-    if(hora2<9){
-    horaFinal="0"+to_string(hora2)+mmF;
-    }else{
-    horaFinal=to_string(hora2)+mmF;
-    }
-    horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"AM";
-
-
-
-
-  }else if(hora1>12){
-
-    hora1=hora1-12;
-
-    if(hora1<9){
-      horaInicio ="0"+to_string(hora1)+mmI;
-    }else{
-      horaInicio =to_string(hora1)+mmI;
+    if(hora_2==0){
+      hora_2=12;
     }
 
-    if(hora2<9){
-      horaFinal="0"+to_string(hora2)+mmF;
+    if(hora_1<=9){
+    horaInicio ="0"+to_string(hora_1)+mmI;
+    }else{
+    horaInicio =to_string(hora_1)+mmI;
+    }
+
+    if(hora_2<=9){
+    horaFinal="0"+to_string(hora_2)+mmF;
+    }else{
+    horaFinal=to_string(hora_2)+mmF;
+    }
+    horaEvento=horaInicio+" "+"PM"+" "+"a"+" "+horaFinal+" "+"PM";
+
+
+
+
+  }else if(hora_1>=12&&hora_2<12){
+    hora_1=hora_1-12;
+
+
+
+    if(hora_1==0){
+      hora_1=12;
+    }
+
+    if(hora_2==0){
+      hora_2=12;
+
+    }
+
+
+    if(hora_1<=9){
+      horaInicio ="0"+to_string(hora_1)+mmI;
+    }else{
+      horaInicio =to_string(hora_1)+mmI;
+    }
+
+    if(hora_2<=9){
+      horaFinal="0"+to_string(hora_2)+mmF;
       }else{
-      horaInicio =to_string(hora2)+mmF;
+      horaInicio =to_string(hora_2)+mmF;
       }
 
     horaEvento=horaInicio+" "+"PM"+" "+"a"+" "+horaFinal+" "+"AM";
 
 
-    }else if(hora2>12){
+  }else if(hora_1<12&&hora_2>=12){
 
-    hora2=hora2-12;
-    if(hora1<9){
-      horaInicio ="0"+to_string(hora1)+mmI;
-    }else{
-       horaInicio =to_string(hora1)+mmI;
+    hora_2=hora_2-12;
+
+    if(hora_1==0){
+      hora_1=12;
+        }
+
+    if(hora_2==0){
+      hora_2=12;
     }
 
-    if(hora2<9){
-      horaFinal="0"+to_string(hora2)+mmF;
+    if(hora_1<=9){
+      horaInicio ="0"+to_string(hora_1)+mmI;
     }else{
-      horaFinal=to_string(hora2)+mmF;
+       horaInicio =to_string(hora_1)+mmI;
+    }
+
+    if(hora_2<=9){
+      horaFinal="0"+to_string(hora_2)+mmF;
+    }else{
+      horaFinal=to_string(hora_2)+mmF;
     }
    horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"PM";
 
@@ -330,24 +266,32 @@ string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal){
 
  }else{
 
-    if(hora1<9){
-      horaInicio ="0"+to_string(hora1)+mmI;
+    if(hora_1<=9){
+      horaInicio ="0"+to_string(hora_1)+mmI;
     }else{
-      horaInicio =to_string(hora1)+mmI;
+      horaInicio =to_string(hora_1)+mmI;
     }
 
-    if(hora2<9){
-      horaFinal="0"+to_string(hora2)+mmF;
+    if(hora_2<=9){
+      horaFinal="0"+to_string(hora_2)+mmF;
     }else{
-      horaFinal=to_string(hora2)+mmF;
+      horaFinal=to_string(hora_2)+mmF;
     }
     horaEvento=horaInicio+" "+"AM"+" "+"a"+" "+horaFinal+" "+"AM";
 
   }
-string fechaEvento=mesNombre+" "+" "+to_string(diaNum);
+
+  if(dia_I==dia_F){
+    fechaEvento=mesNombre_I+" "+" "+to_string(dia_I);
+
+  }else{
+
+     fechaEvento=mesNombre_I+" "+" "+to_string(dia_I)+" "+"a"+" "+mesNombre_F+" "+to_string(dia_F);
+
+  }
+
 
 string fecha=(fechaEvento+"&"+horaEvento);
-
 return fecha;
 
 

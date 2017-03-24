@@ -6,6 +6,11 @@
 #include "Evento.h"
 #include <iostream>
 #include <string>
+#include "boost/date_time/posix_time/posix_time.hpp"
+#include "boost/date_time/local_time_adjustor.hpp"
+#include "boost/date_time/c_local_time_adjustor.hpp"
+#include "boost/date_time/gregorian/gregorian.hpp"
+
 
 
 
@@ -17,6 +22,7 @@ public:
     void update();
     //string cambiarFecha(string fecha);
     string cambiarFechaHora(string fechaInicial,string fechaFinal);
+
 
 
     ofxJSONElement response;
@@ -33,11 +39,17 @@ public:
     int initY=50;
     int flag=1;
 
+
+
+
+
     string meses[12]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre",
     "Octubre","Noviembre","Diciembre"};
+
     string horaInicio;
     string horaFinal;
     string horaEvento;
+    string fechaEvento;
 
     vector <Evento> miEvento;
     vector <Evento> miEvento2;
