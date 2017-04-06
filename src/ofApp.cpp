@@ -1,11 +1,10 @@
 #include "ofApp.h"
 
-
 void ofApp::setup()
 {
-    ofSetFrameRate(24);
 
-    std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
+    ofSetFrameRate(24);
+  
 
     if (!response.open(url))
     {
@@ -22,8 +21,8 @@ void ofApp::setup()
          std::string txt3 = response[i]["uniqueBeginDate"].asString();
          string txt4 = response[i]["uniqueEndDate"].asString();
          string fecha=cambiarFechaHora(txt3,txt4);
-         int pos=fecha.find("&");
 
+         int pos=fecha.find("&");
          string dia=fecha.substr(0,pos);
          string hora=fecha.substr(pos+1,19);
 
@@ -35,12 +34,9 @@ void ofApp::setup()
          miEvento.push_back(tempEvento);
      }
 
-
      inicia=ofGetElapsedTimeMillis();
      inicia2=ofGetElapsedTimeMillis();
      inicia3=ofGetElapsedTimeMillis();
-
-
 }
 
 void ofApp::update()
@@ -52,39 +48,43 @@ void ofApp::update()
     tiempo3=ofGetElapsedTimeMillis()-inicia3;
 
     if(tiempo3>3600000&&flag==1){
-        flag=0;
-        std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
 
-        if (response.open(url))
-         {
-
-
-         }
-
-         unsigned int numImages = MIN(10, response.size());
-         for(unsigned int i = 0; i < numImages; i++)
-          {
-              std::string imagen = response[i]["imageVision"].asString();
-              std::string txt1 = response[i]["categories"][0].asString();
-              std::string txt2 = response[i]["title"].asString();
-              std::string txt3 = response[i]["uniqueBeginDate"].asString();
-              string txt4 = response[i]["uniqueEndDate"].asString();
-
-              string fecha=cambiarFechaHora(txt3,txt4);
-              int pos=fecha.find("&");
-
-              string dia=fecha.substr(0,pos+1);
-              string hora=fecha.substr(pos+1,5);
-
-              ofImage img;
-              img.loadImage(imagen);
-              Evento tempEvento;
-              tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
-              miEvento2.push_back(tempEvento);
-              miEvento=miEvento2;
-            }
-            inicia3=ofGetElapsedTimeMillis();
+      if (!response.open(url))
+      {
+          ofLogNotice("ofApp::setup") << "Failed to parse JSON";
       }
+
+    flag=0;
+    std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
+
+    unsigned int numImages = MIN(10, response.size());
+
+    for(unsigned int i = 0; i < numImages; i++)
+      {
+        std::string imagen = response[i]["imageVision"].asString();
+        std::string txt1 = response[i]["categories"][0].asString();
+        std::string txt2 = response[i]["title"].asString();
+        std::string txt3 = response[i]["uniqueBeginDate"].asString();
+        string txt4 = response[i]["uniqueEndDate"].asString();
+
+        string fecha=cambiarFechaHora(txt3,txt4);
+        int pos=fecha.find("&");
+        string dia=fecha.substr(0,pos+1);
+        string hora=fecha.substr(pos+1,5);
+
+        ofImage img;
+        img.loadImage(imagen);
+        Evento tempEvento;
+        tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
+        miEvento2.push_back(tempEvento);
+        miEvento=miEvento2;
+            }
+
+        miEvento2.clear();
+        inicia3=ofGetElapsedTimeMillis();
+
+      }
+
 }
 
 
@@ -119,7 +119,8 @@ void ofApp::draw(){
     }
 }
 
-string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal){
+string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal)
+{
 
   using namespace boost::posix_time;
   using namespace boost::gregorian;
@@ -290,9 +291,7 @@ string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal){
 
   }
 
-
 string fecha=(fechaEvento+"&"+horaEvento);
 return fecha;
-
 
 }

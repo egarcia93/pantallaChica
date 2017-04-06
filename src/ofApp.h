@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include "ofMain.h"
 #include "ofxJSON.h"
+#include "ofxParagraph.h"
 #include "Evento.h"
 #include <iostream>
 #include <string>
@@ -11,22 +11,19 @@
 #include "boost/date_time/c_local_time_adjustor.hpp"
 #include "boost/date_time/gregorian/gregorian.hpp"
 
-
-
-
 class ofApp: public ofBaseApp
 {
 public:
+
     void setup();
     void draw();
     void update();
-    //string cambiarFecha(string fecha);
     string cambiarFechaHora(string fechaInicial,string fechaFinal);
 
-
-
     ofxJSONElement response;
+
     std::vector<ofImage> images;
+
     int contador=0;
     int tiempo=0;
     int tiempo2=0;
@@ -39,10 +36,6 @@ public:
     int initY=50;
     int flag=1;
 
-
-
-
-
     string meses[12]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre",
     "Octubre","Noviembre","Diciembre"};
 
@@ -50,6 +43,7 @@ public:
     string horaFinal;
     string horaEvento;
     string fechaEvento;
+    std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
 
     vector <Evento> miEvento;
     vector <Evento> miEvento2;

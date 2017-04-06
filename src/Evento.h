@@ -1,6 +1,7 @@
 #ifndef _EVENTO
 #define _EVENTO
 #include "ofMain.h"
+#include "ofxParagraph.h"
 class Evento {
 
     public:
@@ -18,17 +19,23 @@ class Evento {
     int alfa=0;
     int tiempo=0;
     int inicia;
-    int rectW=300;
-    int rectH=100;
+    int rectW=350;
+    int rectH=200;
 
     ofImage img;
     ofTrueTypeFont	verdana14;
     ofTrueTypeFont	gothic10;
+    ofTrueTypeFont gothic15;
 
     string tipo;
     string titulo;
     string fecha;
     string hora;
+
+    ofxParagraph ptipo = ofxParagraph();
+    ofxParagraph ptitulo = ofxParagraph();
+    ofxParagraph pfecha = ofxParagraph();
+    ofxParagraph phora = ofxParagraph();
 
     Evento();  // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
     private: // place private functions or variables declarations here

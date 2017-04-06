@@ -336,7 +336,9 @@ obj/linux64/Release/src/Evento.o: \
  ../../../libs/openFrameworks/video/ofVideoPlayer.h \
  ../../../libs/openFrameworks/video/ofGstVideoPlayer.h \
  ../../../libs/openFrameworks/3d/ofCamera.h \
- ../../../libs/openFrameworks/3d/ofEasyCam.h
+ ../../../libs/openFrameworks/3d/ofEasyCam.h \
+ /home/ccd/OF/addons/ofxParagraph/src/ofxParagraph.h \
+ /home/ccd/OF/addons/ofxSmartFont/src/ofxSmartFont.h
 
 /home/ccd/OF/apps/myApps/pantallaChica/src/Evento.h:
 
@@ -1043,3 +1045,7 @@ obj/linux64/Release/src/Evento.o: \
 ../../../libs/openFrameworks/3d/ofCamera.h:
 
 ../../../libs/openFrameworks/3d/ofEasyCam.h:
+
+/home/ccd/OF/addons/ofxParagraph/src/ofxParagraph.h:
+
+/home/ccd/OF/addons/ofxSmartFont/src/ofxSmartFont.h:
