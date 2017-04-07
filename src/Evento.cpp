@@ -11,33 +11,30 @@ void Evento::setup(float _x, float _y,ofImage _img,string _tipo,string _titulo,s
     fecha=_fecha;
     hora=_hora;
 
-    /*
-    ofTrueTypeFont::setGlobalDpi(72);
-    verdana14.load("verdana.ttf", 14, true, true);
-  	verdana14.setLineHeight(18.0f);
-  	verdana14.setLetterSpacing(1.037);
-
-    gothic10.load("Pill Gothic 300mg Regular.ttf", 10, true, true);
-    gothic10.setLineHeight(18.0f);
-    gothic10.setLetterSpacing(1.037);
-
-    gothic15.load("Pill_Gothic_600mg_Bold.ttf", 15, true, true);
-    gothic15.setLineHeight(18.0f);
-    gothic15.setLetterSpacing(1.037);
-    */
     ptipo.setText(tipo);
-    ptipo.setWidth(200);
+    ptipo.setWidth(width*0.60);
     ptipo.setAlignment(ofxParagraph::ALIGN_LEFT);
     ptipo.setIndent(0);
     ptipo.setFont("Pill Gothic 300mg Regular.ttf",10);
 
     ptitulo.setText(titulo);
-    ptitulo.setWidth(300);
+    ptitulo.setWidth(width*0.60);
     ptitulo.setAlignment(ofxParagraph::ALIGN_LEFT);
     ptitulo.setIndent(0);
-    ptitulo.setFont("Pill_Gothic_600mg_Bold.ttf",20);
+    ptitulo.setLeading(5);
+    ptitulo.setFont("Pill_Gothic_600mg_Bold.ttf",15);
 
+    pfecha.setText(fecha);
+    pfecha.setWidth(width*0.60);
+    pfecha.setAlignment(ofxParagraph::ALIGN_LEFT);
+    pfecha.setIndent(0);
+    pfecha.setFont("Pill_Gothic_600mg_Bold.ttf",12);
 
+    phora.setText(hora);
+    phora.setWidth(width*0.60);
+    phora.setAlignment(ofxParagraph::ALIGN_LEFT);
+    phora.setIndent(0);
+    phora.setFont("Pill_Gothic_600mg_Bold.ttf",12);
 
     inicia=ofGetElapsedTimeMillis();
 
@@ -45,12 +42,13 @@ void Evento::setup(float _x, float _y,ofImage _img,string _tipo,string _titulo,s
 
 void Evento::update(){
 
+
 }
 
 void Evento::draw(){
 
   if(x<10){
-  x=x+5;
+  x=x+20;
   alfa=alfa+20;
 
   }
@@ -58,20 +56,17 @@ void Evento::draw(){
   ofEnableAlphaBlending();
 
     ofSetColor(255,255,255,alfa);
-    //img.resize(ofGetWidth(),ofGetHeight());
+    img.resize(width,height);
     img.draw(imgX,imgY);
     ofSetColor(255,alfa);
-    ofRect(x,y,rectW,rectH);
+    ofRect(x,y,(0.75*width),rectH);
     ofSetColor(0,alfa);
 
     ptipo.draw(x+15,70);
     ptitulo.draw(x+15,90);
-    /*
-    gothic10.drawString(tipo, x+15, 70);
-    gothic15.drawString(titulo, x+15, 90);
-    verdana14.drawString(fecha, x+15, 110);
-    verdana14.drawString(hora, x+15, 130);
-*/
+    pfecha.draw(x+15,150);
+    phora.draw(x+15,180);
+
 
   ofDisableAlphaBlending();
 
@@ -82,25 +77,25 @@ void Evento::dissolve()
 {
 
   if(alfa>0){
-    alfa=alfa-40;
-    x=x-10;
+    alfa=alfa-20;
+    if(x>-width){
+    x=x-30;
+    }
   }
 
   ofEnableAlphaBlending();
 
     ofSetColor(255,255,255,alfa);
-//img.resize(ofGetWidth(),ofGetHeight());
+    img.resize(width,height);
     img.draw(imgX,imgY);
     ofSetColor(255,alfa);
-    ofRect(x,y,rectW,rectH);
+    ofRect(x,y,(0.75*width),rectH);
     ofSetColor(0,alfa);
     ptipo.draw(x+15,70);
     ptitulo.draw(x+15,90);
-  	/*gothic10.drawString(tipo, x+15, 70);
-    gothic15.drawString(titulo, x+15, 90);
-    verdana14.drawString(fecha, x+15, 110);
-    verdana14.drawString(hora, x+15, 130);*/
+    pfecha.draw(x+15,170);
+    phora.draw(x+15,200);
 
-    ofDisableAlphaBlending();
+  ofDisableAlphaBlending();
 
   }

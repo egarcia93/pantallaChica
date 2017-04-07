@@ -16,11 +16,14 @@ class Evento {
     float imgX=0;
     float imgY=0;
 
+    int width=384;
+    int height=288;
     int alfa=0;
     int tiempo=0;
     int inicia;
     int rectW=350;
     int rectH=200;
+
 
     ofImage img;
     ofTrueTypeFont	verdana14;

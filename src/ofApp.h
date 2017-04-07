@@ -24,6 +24,8 @@ public:
 
     std::vector<ofImage> images;
 
+    int width=384;
+    int height=288;
     int contador=0;
     int tiempo=0;
     int tiempo2=0;
@@ -32,9 +34,11 @@ public:
     int inicia2=0;
     int inicia3=0;
     int alfa=255;
-    int initX=-100;
+    int initX=-384;
     int initY=50;
     int flag=1;
+
+
 
     string meses[12]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre",
     "Octubre","Noviembre","Diciembre"};

@@ -4,7 +4,7 @@ void ofApp::setup()
 {
 
     ofSetFrameRate(24);
-  
+
 
     if (!response.open(url))
     {
@@ -47,7 +47,9 @@ void ofApp::update()
 
     tiempo3=ofGetElapsedTimeMillis()-inicia3;
 
-    if(tiempo3>3600000&&flag==1){
+    //if(tiempo3>3600000&&flag==1){
+    if(tiempo3>300000&&flag==1){
+      std::cout << "actualizando" << '\n';
 
       if (!response.open(url))
       {
@@ -55,7 +57,7 @@ void ofApp::update()
       }
 
     flag=0;
-    std::string url = "http://puertadev.centroculturadigital.mx/api/activities2/now2";
+
 
     unsigned int numImages = MIN(10, response.size());
 
@@ -69,8 +71,8 @@ void ofApp::update()
 
         string fecha=cambiarFechaHora(txt3,txt4);
         int pos=fecha.find("&");
-        string dia=fecha.substr(0,pos+1);
-        string hora=fecha.substr(pos+1,5);
+        string dia=fecha.substr(0,pos);
+        string hora=fecha.substr(pos+1,19);
 
         ofImage img;
         img.loadImage(imagen);
