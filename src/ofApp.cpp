@@ -10,6 +10,7 @@ void ofApp::setup()
     {
         ofLogNotice("ofApp::setup") << "Failed to parse JSON";
     }
+    oldResponse=response;
 
     unsigned int numImages = MIN(10, response.size());
 
@@ -27,7 +28,7 @@ void ofApp::setup()
          string hora=fecha.substr(pos+1,19);
 
          ofImage img;
-         img.loadImage(imagen);
+         img.load(imagen);
 
          Evento tempEvento;
          tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
@@ -49,41 +50,8 @@ void ofApp::update()
 
     //if(tiempo3>3600000&&flag==1){
     if(tiempo3>300000&&flag==1){
-      std::cout << "actualizando" << '\n';
 
-      if (!response.open(url))
-      {
-          ofLogNotice("ofApp::setup") << "Failed to parse JSON";
-      }
-
-    flag=0;
-
-
-    unsigned int numImages = MIN(10, response.size());
-
-    for(unsigned int i = 0; i < numImages; i++)
-      {
-        std::string imagen = response[i]["imageVision"].asString();
-        std::string txt1 = response[i]["categories"][0].asString();
-        std::string txt2 = response[i]["title"].asString();
-        std::string txt3 = response[i]["uniqueBeginDate"].asString();
-        string txt4 = response[i]["uniqueEndDate"].asString();
-
-        string fecha=cambiarFechaHora(txt3,txt4);
-        int pos=fecha.find("&");
-        string dia=fecha.substr(0,pos);
-        string hora=fecha.substr(pos+1,19);
-
-        ofImage img;
-        img.loadImage(imagen);
-        Evento tempEvento;
-        tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
-        miEvento2.push_back(tempEvento);
-        miEvento=miEvento2;
-            }
-
-        miEvento2.clear();
-        inicia3=ofGetElapsedTimeMillis();
+      actualiza();
 
       }
 
@@ -295,5 +263,56 @@ string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal)
 
 string fecha=(fechaEvento+"&"+horaEvento);
 return fecha;
+
+}
+
+void ofApp::actualiza(){
+
+  std::cout << "actualizando" << '\n';
+
+  if (!response.open(url))
+  {
+      ofLogNotice("ofApp::setup") << "Failed to parse JSON";
+      response=oldResponse;
+  }
+
+  flag=0;
+
+  oldResponse=response;
+  unsigned int numImages = MIN(10, response.size());
+
+  for(unsigned int i = 0; i < numImages; i++)
+  {
+    std::string imagen = response[i]["imageVision"].asString();
+    std::string txt1 = response[i]["categories"][0].asString();
+    std::string txt2 = response[i]["title"].asString();
+    std::string txt3 = response[i]["uniqueBeginDate"].asString();
+    string txt4 = response[i]["uniqueEndDate"].asString();
+
+    string fecha=cambiarFechaHora(txt3,txt4);
+    int pos=fecha.find("&");
+    string dia=fecha.substr(0,pos);
+    string hora=fecha.substr(pos+1,19);
+
+    ofImage img;
+    img.load(imagen);
+    Evento tempEvento;
+    tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
+    miEvento2.push_back(tempEvento);
+    miEvento=miEvento2;
+        }
+
+    miEvento2.clear();
+    inicia3=ofGetElapsedTimeMillis();
+
+
+}
+
+void ofApp::keyPressed(int key){
+if(key=='r'){
+
+  actualiza();
+
+}
 
 }

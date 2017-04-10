@@ -19,8 +19,11 @@ public:
     void draw();
     void update();
     string cambiarFechaHora(string fechaInicial,string fechaFinal);
+    void actualiza();
+    void keyPressed(int key);
 
     ofxJSONElement response;
+    ofxJSONElement oldResponse;
 
     std::vector<ofImage> images;
 
