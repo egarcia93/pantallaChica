@@ -11,6 +11,8 @@ void Evento::setup(float _x, float _y,ofImage _img,string _tipo,string _titulo,s
     fecha=_fecha;
     hora=_hora;
 
+    logo.load("logo.jpg");
+
     ptipo.setText(tipo);
     ptipo.setWidth(width*0.60);
     ptipo.setAlignment(ofxParagraph::ALIGN_LEFT);
@@ -55,6 +57,7 @@ void Evento::draw(){
 
   ofEnableAlphaBlending();
 
+
     ofSetColor(255,255,255,alfa);
     img.resize(width,height);
     img.draw(imgX,imgY);
@@ -64,14 +67,13 @@ void Evento::draw(){
 
     ptipo.draw(x+15,70);
     ptitulo.draw(x+15,90);
-    pfecha.draw(x+15,150);
-    phora.draw(x+15,180);
+    pfecha.draw(x+15,170);
+    phora.draw(x+15,190);
 
 
   ofDisableAlphaBlending();
+}
 
-
-  }
 
 void Evento::dissolve()
 {
@@ -79,7 +81,7 @@ void Evento::dissolve()
   if(alfa>0){
     alfa=alfa-20;
     if(x>-width){
-    x=x-30;
+    x=x-20;
     }
   }
 
@@ -94,8 +96,16 @@ void Evento::dissolve()
     ptipo.draw(x+15,70);
     ptitulo.draw(x+15,90);
     pfecha.draw(x+15,170);
-    phora.draw(x+15,200);
+    phora.draw(x+15,190);
 
   ofDisableAlphaBlending();
+
+  }
+  void Evento::actualizando(){
+
+    ofSetColor(255,255,255);
+    logo.resize(width,height-20);
+    logo.draw(0,20);
+
 
   }

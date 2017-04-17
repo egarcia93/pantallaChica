@@ -28,16 +28,20 @@ void ofApp::setup()
          string hora=fecha.substr(pos+1,19);
 
          ofImage img;
-         img.load(imagen);
+         if(!img.load(imagen)){
+           img.load("aux.jpg");
+         }
+
 
          Evento tempEvento;
-         tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
+         tempEvento.setup(initX,initY,img,txt1,txt2,dia,hora);
          miEvento.push_back(tempEvento);
      }
 
      inicia=ofGetElapsedTimeMillis();
      inicia2=ofGetElapsedTimeMillis();
      inicia3=ofGetElapsedTimeMillis();
+
 }
 
 void ofApp::update()
@@ -48,10 +52,12 @@ void ofApp::update()
 
     tiempo3=ofGetElapsedTimeMillis()-inicia3;
 
+
     //if(tiempo3>3600000&&flag==1){
     if(tiempo3>300000&&flag==1){
-
-      actualiza();
+      act=false;
+      flag=0;
+      flag2=false;
 
       }
 
@@ -61,9 +67,29 @@ void ofApp::update()
 void ofApp::draw(){
 
     ofBackground(255);
-    miEvento[contador].draw();
     tiempo=ofGetElapsedTimeMillis()-inicia;
     tiempo2=ofGetElapsedTimeMillis()-inicia2;
+
+    if(!act&&!flag2){
+
+        inicia4=ofGetElapsedTimeMillis();
+        flag2=true;
+
+    }
+
+    if(act){
+    miEvento[contador].draw();
+  }else{
+
+
+    miEvento[contador].actualizando();
+    tiempo4=ofGetElapsedTimeMillis()-inicia4;
+
+      if(tiempo4>1000){
+        actualiza();
+  }
+  }
+
 
     if(tiempo>4500){
       contador++;
@@ -76,6 +102,7 @@ void ofApp::draw(){
       contador=0;
     }
 
+  if(act){
     if(tiempo2>4500){
       if(contador==0){
         miEvento[miEvento.size()-1].dissolve();
@@ -83,11 +110,20 @@ void ofApp::draw(){
         miEvento[contador-1].dissolve();
       }
     }
+  }else{
+
+      miEvento[contador].actualizando();
+
+  }
 
     if(tiempo2>6500){
       inicia2=inicia;
     }
-}
+  }
+
+
+
+
 
 string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal)
 {
@@ -269,20 +305,23 @@ return fecha;
 void ofApp::actualiza(){
 
   std::cout << "actualizando" << '\n';
+  act=true;
+  contador=0;
+  flag=0;
 
   if (!response.open(url))
   {
       ofLogNotice("ofApp::setup") << "Failed to parse JSON";
-      response=oldResponse;
-  }
+      //response=oldResponse;
+  } else{
 
-  flag=0;
 
   oldResponse=response;
   unsigned int numImages = MIN(10, response.size());
 
   for(unsigned int i = 0; i < numImages; i++)
   {
+
     std::string imagen = response[i]["imageVision"].asString();
     std::string txt1 = response[i]["categories"][0].asString();
     std::string txt2 = response[i]["title"].asString();
@@ -293,25 +332,31 @@ void ofApp::actualiza(){
     int pos=fecha.find("&");
     string dia=fecha.substr(0,pos);
     string hora=fecha.substr(pos+1,19);
-
     ofImage img;
-    img.load(imagen);
+
+    if(!img.load(imagen)){
+      img.load("aux.jpg");
+    }
+
     Evento tempEvento;
-    tempEvento.setup(initX,initY,imagen,txt1,txt2,dia,hora);
+    tempEvento.setup(initX,initY,img,txt1,txt2,dia,hora);
     miEvento2.push_back(tempEvento);
     miEvento=miEvento2;
         }
 
     miEvento2.clear();
+
     inicia3=ofGetElapsedTimeMillis();
 
 
+  }
 }
 
 void ofApp::keyPressed(int key){
 if(key=='r'){
 
-  actualiza();
+  act=false;
+  flag2=false;
 
 }
 

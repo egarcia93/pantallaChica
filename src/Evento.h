@@ -10,6 +10,7 @@ class Evento {
     void update();
     void draw();
     void dissolve();
+    void actualizando();
 
     float x;
     float y;
@@ -26,6 +27,7 @@ class Evento {
 
 
     ofImage img;
+    ofImage logo;
     ofTrueTypeFont	verdana14;
     ofTrueTypeFont	gothic10;
     ofTrueTypeFont gothic15;

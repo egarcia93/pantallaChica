@@ -33,13 +33,16 @@ public:
     int tiempo=0;
     int tiempo2=0;
     int tiempo3=0;
+    int tiempo4=0;
     int inicia=0;
     int inicia2=0;
     int inicia3=0;
+    int inicia4=0;
     int alfa=255;
     int initX=-384;
-    int initY=50;
+    int initY=30;
     int flag=1;
+
 
 
 
@@ -54,5 +57,10 @@ public:
 
     vector <Evento> miEvento;
     vector <Evento> miEvento2;
+
+    bool act=true;
+    bool flag2=true;
+
+
 
 };
