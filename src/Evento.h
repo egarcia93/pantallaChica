@@ -23,7 +23,7 @@ class Evento {
     int tiempo=0;
     int inicia;
     int rectW=350;
-    int rectH=200;
+    int rectH=220;
 
 
     ofImage img;
@@ -31,6 +31,7 @@ class Evento {
     ofTrueTypeFont	verdana14;
     ofTrueTypeFont	gothic10;
     ofTrueTypeFont gothic15;
+    ofTrueTypeFont gothicFF;
 
     string tipo;
     string titulo;

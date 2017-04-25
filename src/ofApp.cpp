@@ -6,7 +6,7 @@ void ofApp::setup()
     ofSetFrameRate(24);
 
 
-    if (!response.open(url))
+    while (!response.open(url))
     {
         ofLogNotice("ofApp::setup") << "Failed to parse JSON";
     }
@@ -53,8 +53,8 @@ void ofApp::update()
     tiempo3=ofGetElapsedTimeMillis()-inicia3;
 
 
-    //if(tiempo3>3600000&&flag==1){
-    if(tiempo3>300000&&flag==1){
+
+    if(tiempo3>3600000&&flag==1){
       act=false;
       flag=0;
       flag2=false;
@@ -66,7 +66,7 @@ void ofApp::update()
 
 void ofApp::draw(){
 
-    ofBackground(255);
+    ofBackground(0);
     tiempo=ofGetElapsedTimeMillis()-inicia;
     tiempo2=ofGetElapsedTimeMillis()-inicia2;
 
@@ -91,7 +91,7 @@ void ofApp::draw(){
   }
 
 
-    if(tiempo>4500){
+    if(tiempo>8500){
       contador++;
       inicia=ofGetElapsedTimeMillis();
       flag=1;
@@ -103,7 +103,7 @@ void ofApp::draw(){
     }
 
   if(act){
-    if(tiempo2>4500){
+    if(tiempo2>8500){
       if(contador==0){
         miEvento[miEvento.size()-1].dissolve();
       }else{
@@ -116,7 +116,7 @@ void ofApp::draw(){
 
   }
 
-    if(tiempo2>6500){
+    if(tiempo2>10500){
       inicia2=inicia;
     }
   }
@@ -293,7 +293,7 @@ string ofApp::cambiarFechaHora(string fechaInicial,string fechaFinal)
 
   }else{
 
-     fechaEvento=mesNombre_I+" "+" "+to_string(dia_I)+" "+"a"+" "+mesNombre_F+" "+to_string(dia_F);
+     fechaEvento=mesNombre_I+" "+to_string(dia_I)+" "+"a"+" "+mesNombre_F+" "+to_string(dia_F);
 
   }
 
